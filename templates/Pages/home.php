@@ -29,7 +29,7 @@
                     <i class="far fa-clock"></i> Carga Horária: 18h<br>
                     <i class="fas fa-landmark"></i> Local: IFMA - Campus Coelho Neto<br>
                     <i class="fas fa-layer-group"></i> Nível: Básico <br>
-                    <i class="far fa-clock"></i> HORÁRIO<br>      - Manhã - 8:40 à 11:40 <br>     - Tarde - 14:40 à 17:40 <br>
+                    <i class="far fa-clock"></i> DIA e HORÁRIO<br>     - SEXTA - Manhã - 8:40 à 11:40 <br>     - QUINTA - Tarde - 14:40 à 17:40 <br>
                     <i class="fas fa-calendar-alt"></i> PERÍODO <br>- Manhã: 21/01/2022 à 18/03/2022 <br> - Tarde: 20/01/2022 à 17/03/2022<br>
                     <i class="fas fa-laptop"></i> VAGAS: 20 Manhã/ 20 Tarde
                 </div>

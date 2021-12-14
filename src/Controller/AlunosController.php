@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Event\EventInterface;
+use phpDocumentor\Reflection\Types\This;
 
 /**
  * Alunos Controller
@@ -28,9 +29,17 @@ class AlunosController extends AppController
      */
     public function index()
     {
-        $alunos = $this->paginate($this->Alunos);
+        if ((!empty($this->request->getQuery('turno'))) && $this->request->getQuery('turno')){
+            $data = $this->request->getQueryParams();
+            $alunos = $this->getTableLocator()->get('Alunos')->find();
+            $alunos->where(['turno' => $data['turno']]);
 
-        $this->set(compact('alunos'));
+            $alunos = $this->paginate($alunos);
+            $this->set(compact('alunos'));
+        }else {
+            $alunos = $this->paginate($this->Alunos);
+            $this->set(compact('alunos'));
+        }
     }
 
     /**
