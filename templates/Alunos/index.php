@@ -57,6 +57,7 @@ $turno = array(
                     <th><?= $this->Paginator->sort('nome', 'NOME') ?></th>
                     <th><?= $this->Paginator->sort('turma', 'TURMA') ?></th>
                     <th><?= $this->Paginator->sort('turno', 'TURNO') ?></th>
+                    <th><?= $this->Paginator->sort('created', 'DATA') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -67,6 +68,7 @@ $turno = array(
                     <td><?= $this->Html->link(__($aluno->nome), ['action' => 'view', $aluno->id]) ?></td>
                     <td><?= h($aluno->turma) ?></td>
                     <td><?= h($aluno->turno) ?></td>
+                    <td><?= h($aluno->created) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('Editar'), ['action' => 'edit', $aluno->id], ['class' => 'btn btn-outline-primary btn-sm fas fa-edit']) ?>
                         <?= $this->Form->postLink(__('Excluir'), ['action' => 'delete', $aluno->id], ['class' => 'btn btn-outline-danger btn-sm far fa-trash-alt','confirm' => __('Tem certeza que deseja excluir a inscrição de # {0}?', $aluno->nome)]) ?>

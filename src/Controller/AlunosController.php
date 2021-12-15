@@ -33,6 +33,7 @@ class AlunosController extends AppController
             $data = $this->request->getQueryParams();
             $alunos = $this->getTableLocator()->get('Alunos')->find();
             $alunos->where(['turno' => $data['turno']]);
+            $alunos->order(['created'=>'ASC']);
 
             $alunos = $this->paginate($alunos);
             $this->set(compact('alunos'));
