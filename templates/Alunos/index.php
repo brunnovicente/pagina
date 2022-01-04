@@ -30,6 +30,9 @@ $turno = array(
             <li class="nav-item">
                 <?= $this->Html->link(__('Voltar'), ['controller'=>'welcome','action' => 'index'], ['class' => 'nav-link btn btn-outline-info btn-sm m-1 fas fa-plus']) ?>
             </li>
+            <li class="nav-item">
+                <?= $this->Html->link(__('Relatório'), ['action' => 'relatorio'], ['class' => 'nav-link btn btn-outline-info btn-sm m-1 fas fa-plus', 'target'=>'_blank', 'escape'=>false]) ?>
+            </li>
         </ul>
     </nav>
 

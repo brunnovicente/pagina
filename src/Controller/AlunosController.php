@@ -43,6 +43,36 @@ class AlunosController extends AppController
         }
     }
 
+    public function relatorio(){
+        $pdf = new \TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('Bruno Vicente');
+        $pdf->SetTitle('RELATÓRIO');
+        $pdf->SetSubject('Lista de Alunos');
+        $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+
+        $alunos = $this->getTableLocator()->get('Alunos')->find();
+
+        $builder = $this->viewBuilder();
+
+        // configure as needed
+        $builder->setLayout('report');
+        $builder->setTemplate('Alunos\relatorio');
+        $builder->setHelpers(['Html']);
+
+        // create a view instance
+        $view = $builder->build(compact('alunos'));
+
+        // render to a variable
+        $output = $view->render();
+
+        $pdf->AddPage();
+        $pdf->writeHTML($output, true, false, true, false, '');
+        $pdf->lastPage();
+
+        $pdf->Output('relatorio.pdf', 'I');
+    }
+
     /**
      * View method
      *
