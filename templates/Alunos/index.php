@@ -25,13 +25,13 @@ $turno = array(
         <h3><?=__('Alunos Inscritos')?></h3>
         <ul class="nav justify-content-end">
             <li class="nav-item">
-                <?= $this->Html->link(__('Inscrever'), ['action' => 'add'], ['class' => 'nav-link btn btn-outline-success btn-sm m-1 fas fa-plus']) ?>
+                <?= $this->Html->link(__(''), ['action' => 'add'], ['class' => 'nav-link btn btn-outline-success m-1 fas fa-plus']) ?>
             </li>
             <li class="nav-item">
-                <?= $this->Html->link(__('Voltar'), ['controller'=>'welcome','action' => 'index'], ['class' => 'nav-link btn btn-outline-info btn-sm m-1 fas fa-plus']) ?>
+                <?= $this->Html->link(__(''), ['action' => 'relatorio'], ['class' => 'nav-link btn btn-outline-primary m-1 fas fa-list', 'target'=>'_blank', 'escape'=>false]) ?>
             </li>
             <li class="nav-item">
-                <?= $this->Html->link(__('Relatório'), ['action' => 'relatorio'], ['class' => 'nav-link btn btn-outline-info btn-sm m-1 fas fa-plus', 'target'=>'_blank', 'escape'=>false]) ?>
+                <?= $this->Html->link(__(''), ['controller'=>'welcome','action' => 'index'], ['class' => 'nav-link btn btn-outline-info btn-sm m-1 fas fa-sign-out-alt']) ?>
             </li>
         </ul>
     </nav>
@@ -51,8 +51,11 @@ $turno = array(
         <?= $this->Form->end() ?>
     </div>
     <br>
-    <p><?php echo count($alunos);?> inscrições realizadas</p>
+
     <div class="shadow">
+        <h5 class="m-1">
+            <?php echo $this->Paginator->counter('{{count}}') ?> Inscrições Realizadas!
+        </h5>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -73,8 +76,8 @@ $turno = array(
                     <td><?= h($aluno->turno) ?></td>
                     <td><?= h($aluno->created) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('Editar'), ['action' => 'edit', $aluno->id], ['class' => 'btn btn-outline-primary btn-sm fas fa-edit']) ?>
-                        <?= $this->Form->postLink(__('Excluir'), ['action' => 'delete', $aluno->id], ['class' => 'btn btn-outline-danger btn-sm far fa-trash-alt','confirm' => __('Tem certeza que deseja excluir a inscrição de # {0}?', $aluno->nome)]) ?>
+                        <?= $this->Html->link(__(''), ['action' => 'edit', $aluno->id], ['class' => 'btn btn-outline-primary fas fa-edit']) ?>
+                        <?= $this->Form->postLink(__(''), ['action' => 'delete', $aluno->id], ['class' => 'btn btn-outline-danger far fa-trash-alt','confirm' => __('Tem certeza que deseja excluir a inscrição de # {0}?', $aluno->nome)]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>

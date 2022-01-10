@@ -51,7 +51,16 @@ class AlunosController extends AppController
         $pdf->SetSubject('Lista de Alunos');
         $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 
-        $alunos = $this->getTableLocator()->get('Alunos')->find();
+        $alunosM = $this->getTableLocator()->get('Alunos')->find()
+            ->where(['turno'=>'MANHA'])
+            ->limit(20)
+            ->order(['created'=>'ASC']);
+        $alunosT = $this->getTableLocator()->get('Alunos')->find()
+            ->where(['turno'=>'TARDE'])
+            ->limit(20)
+            ->order(['created'=>'ASC']);
+
+        $alunos = array_merge($alunosM->toArray(), $alunosT->toArray());
 
         $builder = $this->viewBuilder();
 
@@ -158,3 +167,4 @@ class AlunosController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 }
+
