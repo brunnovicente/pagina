@@ -8,7 +8,13 @@ class WelcomeController extends AppController{
 
     public function index(){
         $user = $this->Auth->user();
+
+        $aluno = null;
+        if($user['roles']=='ALUNO') {
+            $aluno = $this->getTableLocator()->get('Alunos')->find()->where(['users_id' => $user['id']])->first();
+        }
         $this->set(compact('user'));
+        $this->set(compact('aluno'));
     }
 
     public function isAuthorized($user)

@@ -50,8 +50,10 @@ $cakeDescription = 'Curso Arduíno';
                 <i class="fas fa-user"></i> <?php //echo $user['username'];?>
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                   <a class="dropdown-item" href="/users/index">Gerenciar Usuários</a>
-                <div class="dropdown-divider"></div>
+                <?php if($user['roles']=='ADMINISTRADOR'):?>
+                    <a class="dropdown-item" href="/users/index">Gerenciar Usuários</a>
+                    <div class="dropdown-divider"></div>
+                <?php endif;?>
                 <a class="dropdown-item" href="/users/logout">Sair</a>
             </div>
         </div>

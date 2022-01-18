@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Event\EventInterface;
+use Dompdf\Dompdf;
 use phpDocumentor\Reflection\Types\This;
 
 /**
@@ -80,6 +81,30 @@ class AlunosController extends AppController
         $pdf->lastPage();
 
         $pdf->Output('relatorio.pdf', 'I');
+    }
+
+    public function pdf(){
+        $dompdf = new Dompdf();
+
+                // create a view instance
+        $builder = $this->viewBuilder();
+        $builder->setLayout('report');
+        $builder->setTemplate('Alunos\relatorio');
+        $builder->setHelpers(['Html']);
+        $view = $builder->build();
+
+        // render to a variable
+        $output = $view->render();
+        $dompdf->loadHtml($output);
+
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream();
     }
 
     /**
@@ -166,5 +191,39 @@ class AlunosController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function inscricao($id){
+        $aluno = $this->Alunos->get($id);
+        $user = $this->Auth->user();
+        $this->set(compact('user'));
+        $this->set(compact('aluno'));
+
+        $alunos = $this->Alunos->find('All')
+            ->where(['turno' => $aluno->turno])
+            ->order(['created'=>'ASC'])
+            ->limit(20);
+        $inscricao = 'INDEFERIDA';
+
+        foreach ($alunos as $a){
+            if($aluno->id == $a->id){
+                $inscricao = 'DEFERIDA';
+            }
+        }
+        $this->set(compact('inscricao'));
+    }
+
+    public function isAuthorized($user)
+    {
+        if (in_array($user['roles'], ['ADMINISTRADOR'])) {
+            return true;
+        } else {
+            if (in_array($this->request->getParam('action'), ['view', 'inscricao'])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }
 

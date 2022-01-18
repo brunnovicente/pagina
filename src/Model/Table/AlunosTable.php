@@ -44,6 +44,10 @@ class AlunosTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->belongsTo('Users', [
+            'foreignKey' => 'users_id',
+        ]);
     }
 
     /**
@@ -55,36 +59,43 @@ class AlunosTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->scalar('matricula')
-            ->maxLength('matricula', 25)
-            ->notEmptyString('matricula', 'Digite a MATRÍCULA!');
-
-        $validator
             ->integer('id')
             ->allowEmptyString('id', null, 'create');
 
         $validator
+            ->scalar('matricula')
+            ->maxLength('matricula', 20)
+            ->allowEmptyString('matricula');
+
+        $validator
             ->scalar('nome')
             ->maxLength('nome', 100)
-            ->notEmptyString('nome', 'Digite o NOME completo!');
+            ->allowEmptyString('nome');
 
         $validator
             ->scalar('turma')
             ->maxLength('turma', 20)
-            ->notEmptyString('turma', 'Escolha a turma!');
+            ->allowEmptyString('turma');
 
         $validator
             ->scalar('turno')
             ->maxLength('turno', 20)
-            ->notEmptyString('turno', 'Escolha o turno!');
+            ->allowEmptyString('turno');
 
         return $validator;
     }
 
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['matricula'], 'MATRÍCULA pertence à um aluno já inscrito.'));
+        $rules->add($rules->existsIn('users_id', 'Users'), ['errorField' => 'users_id']);
+
         return $rules;
     }
-
 }

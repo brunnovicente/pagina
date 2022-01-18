@@ -9,11 +9,13 @@ use Cake\ORM\Entity;
  * Aluno Entity
  *
  * @property int $id
+ * @property string|null $matricula
  * @property string|null $nome
  * @property string|null $turma
  * @property string|null $turno
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
+ * @property int|null $users_id
  */
 class Aluno extends Entity
 {
@@ -27,11 +29,12 @@ class Aluno extends Entity
      * @var array
      */
     protected $_accessible = [
-        'nome' => true,
         'matricula' => true,
+        'nome' => true,
         'turma' => true,
         'turno' => true,
         'created' => true,
         'modified' => true,
+        'users_id' => true,
     ];
 }

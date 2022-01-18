@@ -129,4 +129,17 @@ class UsersController extends AppController
         return $this->redirect($this->Auth->logout());
     }
 
+    public function isAuthorized($user)
+    {
+        if (in_array($user['roles'], ['ADMINISTRADOR'])) {
+            return true;
+        } else {
+            if (in_array($this->request->getParam('action'), ['logout'])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }
