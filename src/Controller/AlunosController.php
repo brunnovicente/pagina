@@ -36,8 +36,10 @@ class AlunosController extends AppController
             $alunos->where(['turno' => $data['turno']]);
             $alunos->order(['created'=>'ASC']);
 
+            $user = $this->Auth->user();
             $alunos = $this->paginate($alunos);
             $this->set(compact('alunos'));
+            $this->set(compact('user'));
         }else {
             $alunos = $this->paginate($this->Alunos);
             $this->set(compact('alunos'));
@@ -52,16 +54,15 @@ class AlunosController extends AppController
         $pdf->SetSubject('Lista de Alunos');
         $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 
-        $alunosM = $this->getTableLocator()->get('Alunos')->find()
-            ->where(['turno'=>'MANHA'])
-            ->limit(20)
-            ->order(['created'=>'ASC']);
-        $alunosT = $this->getTableLocator()->get('Alunos')->find()
+        $alunos = $this->getTableLocator()->get('Alunos')->find()
             ->where(['turno'=>'TARDE'])
-            ->limit(20)
             ->order(['created'=>'ASC']);
+        //$alunosT = $this->getTableLocator()->get('Alunos')->find()
+        //    ->where(['turno'=>'TARDE'])
+        //    ->limit(20)
+        //    ->order(['created'=>'ASC']);
 
-        $alunos = array_merge($alunosM->toArray(), $alunosT->toArray());
+        //$alunos = array_merge($alunosM->toArray(), $alunosT->toArray());
 
         $builder = $this->viewBuilder();
 
